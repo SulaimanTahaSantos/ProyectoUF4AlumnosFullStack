@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
     LucideEye,
@@ -15,15 +16,29 @@ import {
     LucideLock,
     LucideMail,
 } from "lucide-react";
+import { usuarios } from "@/users/arrayUsers"; // Asegúrate de que la ruta sea correcta
 
 export default function Login() {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Iniciando sesión con:", email, password);
+
+        const userFound = usuarios.find(
+            (user) => user.email === email && user.password === password
+        );
+
+        if (userFound) {
+            console.log("Inicio de sesión exitoso");
+            console.log("Bienvenido,", userFound.email);
+            router.push("/home");
+        } else {
+            console.log("Error de inicio de sesión");
+            alert("Email o contraseña incorrectos");
+        }
     };
 
     return (
