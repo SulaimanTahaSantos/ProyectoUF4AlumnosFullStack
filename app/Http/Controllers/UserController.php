@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function indexx(){
+    public function index(){
         $users = User::all();
         return response()->json($users);
     }
